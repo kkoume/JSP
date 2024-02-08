@@ -37,6 +37,9 @@ public class ArticleDTO {
 	public void setParent(int parent) {
 		this.parent = parent;
 	}
+	public void setParent(String parent) {			// Overload 메서드 : 기본 메서드에서 string으로 처리되는
+		this.parent = Integer.parseInt(parent);
+	}
 	public int getComment() {
 		return comment;
 	}
