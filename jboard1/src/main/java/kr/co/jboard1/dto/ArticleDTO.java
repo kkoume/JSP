@@ -31,6 +31,9 @@ public class ArticleDTO {
 	public void setNo(int no) {
 		this.no = no;
 	}
+	public void setNo(String no) {					// Overload 메서드 : 기본 메서드에서 string으로 처리되는
+		this.no = Integer.parseInt(no);
+	}
 	public int getParent() {
 		return parent;
 	}
