@@ -62,6 +62,29 @@
 				xhr.open('GET', './proc/getUser2.jsp?uid='+value);
 				xhr.send();
 				
+				// 응답처리
+				xhr.onreadystatechange = function(){
+					
+					// 응답완료
+					if(xhr.readyState == XMLHttpRequest.DONE){
+						
+						// 요청성공
+						if(xhr.status == 200){
+							const resData = JSON.parse(xhr.responseText);
+							console.log(resData);
+							
+							formUser.uid.value = resData.uid;
+							formUser.name.value = resData.name;
+							formUser.birth.value = resData.birth;
+							formUser.addr.value = resData.addr;
+							
+						}else{
+							// 요청실패
+							console.log('요청실패...');
+						}
+					}
+				}
+				
 			}
 		
 		</script>
