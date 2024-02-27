@@ -4,12 +4,12 @@ public class SQL {
 
 	
 	public static final String SELECT_TERMS = "SELECT * FROM `terms`";
-	
 	public static final String SELECT_COUNT_USER = "SELECT COUNT(*) FROM `user` ";
 	public static final String WHERE_UID   = "WHERE `uid`=?";
 	public static final String WHERE_NICK  = "WHERE `nick`=?";
 	public static final String WHERE_HP    = "WHERE `hp`=?";
 	public static final String WHERE_EMAIL = "WHERE `email`=?";
+	
 	
 	public static final String INSERT_USER = "INSERT INTO `User` SET "
 										   + "`uid`=?,"
@@ -28,6 +28,7 @@ public class SQL {
 	public static final String INSERT_ARTICLE = "INSERT INTO `Article` SET "
 												+ "`title`=?,"
 												+ "`content`=?,"
+												+ "`file`=?,"
 												+ "`writer`=?,"
 												+ "`regip`=?,"
 												+ "`rdate`=NOW()";
@@ -39,7 +40,14 @@ public class SQL {
 												+ "`regip`=?,"
 												+ "`rdate`=NOW()";
 	
-	public static final String SELECT_COUNT_TOTAL = "SELECT COUNT(*) FROM `Article` AS a JOIN `User` AS b ON a.writer = b.uid WHERE `parent`=0 ";
+	public static final String INSERT_FILE = "INSERT INTO `File` SET "
+											+ "`ano`=?,"
+											+ "`oName`=?,"
+											+ "`sName`=?,"
+											+ "`rdate`=NOW()";
+	
+	
+	public static final String SELECT_COUNT_TOTAL = "SELECT COUNT(*) FROM `Article` WHERE `parent`=0 ";
 	
 	public static final String SELECT_ARTICLES = "SELECT a.*, b.`nick` FROM `Article` AS a "
 												+ "JOIN `User` AS b ON a.writer = b.uid "
