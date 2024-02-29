@@ -40,11 +40,20 @@ public class ArticleService {
 	public int insertArticle(ArticleDTO articleDTO) {
 		return dao.insertArticle(articleDTO);
 	}
+	
+	public int insertComment(ArticleDTO articleDTO) {
+		return dao.insertComment(articleDTO);
+	}
+	
 	public ArticleDTO selectArticle(String no) {
 		return dao.selectArticle(no);
 	}
 	public List<ArticleDTO> selectArticles(int start) {
 		return dao.selectArticles(start);
+	}
+	
+	public List<ArticleDTO> selectComments(String parent) {
+		return dao.selectComments(parent);
 	}
 	
 	public int selectCountTotal() {
@@ -53,9 +62,18 @@ public class ArticleService {
 	public void updateArticle(ArticleDTO articleDTO) {
 		dao.updateArticle(articleDTO);
 	}
+	public void updateArticleForFileCount(int no) {
+		dao.updateArticleForFileCount(no);
+	}
+	
 	public void deleteArticle(int no) {
 		dao.deleteArticle(no);
 	}
+	
+	public int deleteComment(String no) {
+		return dao.deleteComment(no);
+	}
+	
 	
 	public ArticleDTO fileUpload(HttpServletRequest req) {
 		// 파일 업로드 경로 설정
@@ -116,6 +134,8 @@ public class ArticleService {
 						articleDTO.setContent(fieldValue);
 					}else if(fieldName.equals("writer")) {
 						articleDTO.setWriter(fieldValue);
+					}else if(fieldName.equals("no")) {
+						articleDTO.setNo(fieldValue);
 					}
 				}
 			}
@@ -158,8 +178,8 @@ public class ArticleService {
 			
 			bos.close();
 			bis.close();
-		
-		}catch(Exception e) {
+			
+		}catch (Exception e) {
 			logger.error("fileDownload : " + e.getMessage());
 		}
 	}

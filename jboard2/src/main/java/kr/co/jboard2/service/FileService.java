@@ -3,10 +3,10 @@ package kr.co.jboard2.service;
 import java.util.List;
 
 import kr.co.jboard2.dao.FileDAO;
-import kr.co.jboard2.db.SQL;
 import kr.co.jboard2.dto.FileDTO;
 
 public class FileService {
+	
 	private static FileService instance = new FileService();
 	public static FileService getInstance() {
 		return instance;
@@ -28,7 +28,7 @@ public class FileService {
 	public void updateFile(FileDTO fileDTO) {
 		dao.updateFile(fileDTO);
 	} 
-	public void deleteFile(int fno) {
-		dao.deleteFile(fno);
+	public int deleteFile(String fno) {
+		return dao.deleteFile(fno);
 	} 
 }

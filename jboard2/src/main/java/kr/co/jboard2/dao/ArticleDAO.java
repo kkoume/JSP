@@ -55,6 +55,31 @@ public class ArticleDAO extends DBHelper {
 		
 		return pk;
 	}
+	
+	public int insertComment(ArticleDTO articleDTO) {
+		
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.INSERT_COMMENT);
+			psmt.setInt(1, articleDTO.getParent());
+			psmt.setString(2, articleDTO.getContent());
+			psmt.setString(3, articleDTO.getWriter());
+			psmt.setString(4, articleDTO.getRegip());
+			logger.info("insertComment : " + psmt);
+			
+			result = psmt.executeUpdate();
+			closeAll();
+			
+		}catch (Exception e) {
+			logger.error("insertComment : " + e.getMessage());
+		}
+		
+		return result;
+	}
+	
+	
 	public ArticleDTO selectArticle(String no) {
 		
 		ArticleDTO articleDTO = null;
@@ -70,7 +95,7 @@ public class ArticleDAO extends DBHelper {
 			
 			while(rs.next()) {
 				
-				// 글 하나당 파일이 여러개일 경우 글객체(ArticleDTO)는 여러개 생성할 필요가 없기 때문에 1개만 생성되도록 조건처리
+				// 글 하나당 파일이 여러개일 경우 글객체(ArticleDTO)는 여러개 생성할 필요가 없기 때문에 1개만 생성 되도록 조건처리
 				if(articleDTO == null) {
 					articleDTO = new ArticleDTO();
 					articleDTO.setNo(rs.getInt(1));
@@ -100,12 +125,12 @@ public class ArticleDAO extends DBHelper {
 			
 			closeAll();
 			
-		}catch(Exception e){
+		}catch (Exception e) {
 			logger.error("selectArticle : " + e.getMessage());
 		}
+		
 		return articleDTO;
 	}
-	
 	public List<ArticleDTO> selectArticles(int start) {
 		List<ArticleDTO> articles = new ArrayList<>();
 		
@@ -140,6 +165,43 @@ public class ArticleDAO extends DBHelper {
 		return articles;
 	}
 	
+	public List<ArticleDTO> selectComments(String parent) {
+		
+		List<ArticleDTO> comments = new ArrayList<>();
+		
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.SELECT_COMMENTS);
+			psmt.setString(1, parent);
+			logger.info("selectComments : " + psmt);
+			
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				ArticleDTO article = new ArticleDTO();
+				article.setNo(rs.getInt(1));
+				article.setParent(rs.getInt(2));
+				article.setComment(rs.getInt(3));
+				article.setCate(rs.getString(4));
+				article.setTitle(rs.getString(5));
+				article.setContent(rs.getString(6));
+				article.setFile(rs.getInt(7));
+				article.setHit(rs.getInt(8));
+				article.setWriter(rs.getString(9));
+				article.setRegip(rs.getString(10));
+				article.setRdate(rs.getString(11));
+				article.setNick(rs.getString(12));
+				comments.add(article);
+			}
+			
+			closeAll();
+		}catch (Exception e) {
+			logger.error("selectComments : " + e.getMessage());
+		}
+		
+		return comments;
+	}
+	
 	public int selectCountTotal() {
 		
 		int total = 0;
@@ -154,7 +216,7 @@ public class ArticleDAO extends DBHelper {
 			}
 			closeAll();
 		}catch (Exception e) {
-			e.printStackTrace();
+			logger.error("selectCountTotal" + e.getMessage());
 		}
 		
 		return total;
@@ -162,9 +224,61 @@ public class ArticleDAO extends DBHelper {
 
 	public void updateArticle(ArticleDTO articleDTO) {
 		
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.UPDATE_ARTICLE);
+			psmt.setString(1, articleDTO.getTitle());
+			psmt.setString(2, articleDTO.getContent());
+			psmt.setInt(3, articleDTO.getFile());
+			psmt.setInt(4, articleDTO.getNo());
+			logger.info("updateArticle : " + psmt);
+			
+			psmt.executeUpdate();		
+			closeAll();			
+			
+		}catch (Exception e) {
+			logger.error("updateArticle : " + e.getMessage());
+		}
 	}
+	
+	public void updateArticleForFileCount(int no) {
+		
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.UPDATE_ARTICLE_FOR_FILE_COUNT);
+			psmt.setInt(1, no);
+			logger.info("updateArticleForFileCount : " + psmt);
+			
+			psmt.executeUpdate();		
+			closeAll();			
+			
+		}catch (Exception e) {
+			logger.error("updateArticleForFileCount : " + e.getMessage());
+		}
+	}
+	
 	public void deleteArticle(int no) {
 		
+	}
+	
+	public int deleteComment(String no) {
+		
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.DELETE_COMMENT);
+			psmt.setString(1, no);
+			logger.info("deleteComment : " + psmt);
+			
+			result = psmt.executeUpdate();		
+			closeAll();			
+			
+		}catch (Exception e) {
+			logger.error("deleteComment : " + e.getMessage());
+		}
+		
+		return result;
 	}
 
 }
