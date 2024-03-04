@@ -17,8 +17,8 @@ import kr.co.jboard2.service.FileService;
 
 @WebServlet("/fileDownload.do")
 public class FileDownloadController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 3454011666393788527L;
+
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private FileService service = FileService.getInstance();
 	private ArticleService articleService = ArticleService.getInstance();
@@ -38,12 +38,9 @@ public class FileDownloadController extends HttpServlet {
 		
 		// 파일 다운로드
 		articleService.fileDownload(req, resp, fileDTO);
-		
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 	}
-
 }

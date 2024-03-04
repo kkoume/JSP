@@ -1,13 +1,22 @@
 package kr.co.jboard2.dto;
 
 public class FileDTO {
-
+	
 	private int fno;
 	private int ano;
 	private String oName;
 	private String sName;
 	private int download;
 	private String rdate;
+	
+	public FileDTO() {
+		
+	}
+	
+	public FileDTO(int ano, String sName) {
+		this.ano = ano;
+		this.sName = sName;
+	}
 	
 	public int getFno() {
 		return fno;
@@ -45,12 +54,10 @@ public class FileDTO {
 	public void setRdate(String rdate) {
 		this.rdate = rdate;
 	}
+	
 	@Override
 	public String toString() {
 		return "FileDTO [fno=" + fno + ", ano=" + ano + ", oName=" + oName + ", sName=" + sName + ", download="
 				+ download + ", rdate=" + rdate + "]";
 	}
-	
-	
-	
 }

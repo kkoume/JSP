@@ -18,8 +18,8 @@ import kr.co.jboard2.service.ArticleService;
 
 @WebServlet("/view.do")
 public class ViewController extends HttpServlet {
+	private static final long serialVersionUID = -4302286311604205457L;
 
-	private static final long serialVersionUID = 1L;
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private ArticleService service = ArticleService.getInstance();
 	

@@ -20,7 +20,7 @@ public class CheckLoginFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
+
 		// 로그인 여부 확인
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpSession session = req.getSession();
