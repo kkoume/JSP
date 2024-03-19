@@ -66,7 +66,7 @@ public class UserService {
 		
 		// 기본정보
 		String sender = "exazunyan1@gmail.com";
-		String password = "ruzj nacr hkdt syvi";	// 앱 비밀번호
+		String password = "wvwa hbuu hxup wduj";	// 앱 비밀번호
 		String title = "jboard2 인증코드 입니다.";
 		String content = "<h1>인증코드는 " + code + "입니다.</h1>";
 		
